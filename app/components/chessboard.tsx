@@ -36,7 +36,7 @@ export const ChessboardComponent: React.FC = () => {
     );
 
     const getSquareColor = (percentage: number) => {
-        if (percentage === 0) return "transparent";
+        if (percentage <= 5) return "transparent";
 
         // Interpolation logarithmique pour éviter une dominance de rouge
         const normalized = Math.log(1 + percentage) / Math.log(101); // Normalisation sur 0-1
@@ -44,8 +44,16 @@ export const ChessboardComponent: React.FC = () => {
         const red = Math.floor(255 * normalized);
         const green = Math.floor(255 * (1 - normalized));
 
-        return `rgba(${red}, ${green}, 0, 0.7)`; // Opacité de 0.6
+        return `rgba(${red}, ${green}, 0, 0.9)`; // Opacité de 0.6
     };
+
+    const getSquareStyle = (percentage: number) => {
+        if (percentage <= 5) return {};
+        return {
+            backgroundColor: getSquareColor(percentage),
+            border: "1px solid rgba(0, 0, 0, 0.2)",
+        };
+    }
 
     return (
         <div className="flex justify-center items-center">
@@ -56,7 +64,7 @@ export const ChessboardComponent: React.FC = () => {
                     Object.fromEntries(
                         Object.entries(normalizedHeatmap).map(([square, percentage]) => [
                             square,
-                            { backgroundColor: getSquareColor(percentage) },
+                            getSquareStyle(percentage),
                         ])
                     )
                 }
