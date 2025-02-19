@@ -7,6 +7,7 @@ export const computeHeatmap = (fens: string[]): Heatmap => {
         const board = fen.split(" ")[0]; // Pour chaque fen on extrait uniquement la partie sur la position des pièces
         const rows = board.split("/"); // On sépare les lignes de l'échiquier
 
+        // Pas sur de l'algo vu le résultat obtenu
         rows.forEach((row, rowIndex) => {   
             const rank = 8 - rowIndex; // On commence par la 8ème rangée
             let file = 0; // On commence par la colonne a 
@@ -25,5 +26,8 @@ export const computeHeatmap = (fens: string[]): Heatmap => {
         });
 
     });
+
+    console.log('HeatMap : ', heatmap);
+    
     return heatmap;
 };

@@ -8,7 +8,7 @@ export default function Home() {
             <h1>Chess Heatmap</h1> <br />
             running on{" "}
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              staging.chess-heatmap.hellopedro.dev
+              hellopedro.dev
             </code>
             <ChessboardComponent />
             <PGNInput />
