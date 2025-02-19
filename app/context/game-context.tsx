@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { GameContextProps } from "../types/game-context-props";
 import { Heatmap } from "../types/heatmap";
+import { parsePGNtoFEN } from "../utils/pgn-parser";
 
 export const GameContext = createContext<GameContextProps | undefined>(undefined);
 
@@ -11,6 +12,21 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [selectedMove, setSelectedMove] = useState<number>(0);
+
+    const parseAndSetPGN = (pgn: string) => {
+      setLoading(true);
+
+      try {
+        const parsedFens = parsePGNtoFEN(pgn);
+        setFens(parsedFens);
+        setPgn(pgn);
+        setError(null);
+      } catch (error) {
+        setError("Erreur lors du parsing PGN vers FEN");
+      } finally {
+        setLoading(false);
+      }
+    };
 
     return (
         <GameContext.Provider value={{
@@ -26,6 +42,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
             setError,
             selectedMove,
             setSelectedMove,
+            parseAndSetPGN
         }}>
             {children}
         </GameContext.Provider>
