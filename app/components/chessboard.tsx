@@ -1,9 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Chessboard } from "react-chessboard";
+import { useGameContext } from "../context/game-context";
 
-export const ChessboardComponent: React.FC = () => { 
+export const ChessboardComponent: React.FC = () => {
+    const {chess} = useGameContext();
+    console.log(chess);
+    
+    
     const [squareStyles, setSquareStyles] = useState<{[key: string]: React.CSSProperties}>({
         e4: { backgroundColor: "red" },
     });
@@ -25,7 +30,7 @@ export const ChessboardComponent: React.FC = () => {
         <div className="flex justify-center items-center">
             <Chessboard
                 id="chessboard"
-                position="start"
+                position={chess.fen()}
                 customSquareStyles={squareStyles}
                 customBoardStyle={customBoardStyle}
                 customDarkSquareStyle={customDarkSquareStyle}
