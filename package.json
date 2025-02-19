@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.6",
+    "chess.js": "^1.0.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-chessboard": "^4.7.2",
