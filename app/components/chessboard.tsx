@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Chessboard } from "react-chessboard";
 import { useGameContext } from "../context/game-context";
 
@@ -44,7 +44,7 @@ export const ChessboardComponent: React.FC = () => {
         const red = Math.floor(255 * normalized);
         const green = Math.floor(255 * (1 - normalized));
 
-        return `rgba(${red}, ${green}, 0, 0.6)`; // Opacité de 0.6
+        return `rgba(${red}, ${green}, 0, 0.7)`; // Opacité de 0.6
     };
 
     return (
