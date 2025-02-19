@@ -47,8 +47,8 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       setFens(parsedFens);
       setPgn(pgn);
       setSelectedMove(parsedFens.length - 1);
-      // eslint-disable-next-line
       setError(null);
+      // eslint-disable-next-line
     } catch (error) {
       setError("Erreur lors du parsing PGN vers FEN");
     } finally {
