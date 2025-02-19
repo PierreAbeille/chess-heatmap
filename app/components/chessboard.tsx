@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { useGameContext } from "../context/game-context";
 
@@ -8,7 +8,8 @@ export const ChessboardComponent: React.FC = () => {
     const {chess} = useGameContext();
     console.log(chess);
     
-    
+    //disable eslint for this line
+    // eslint-disable-next-line
     const [squareStyles, setSquareStyles] = useState<{[key: string]: React.CSSProperties}>({
         e4: { backgroundColor: "red" },
     });

@@ -9,6 +9,7 @@ import { Chess } from "chess.js";
 export const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
+    //eslint-disable-next-line
   const [chess, setChess] = useState<any>(new Chess());
   const [pgn, setPgn] = useState<string>("");
   const [fens, setFens] = useState<string[]>([]);
@@ -46,6 +47,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       setFens(parsedFens);
       setPgn(pgn);
       setSelectedMove(parsedFens.length - 1);
+      // eslint-disable-next-line
       setError(null);
     } catch (error) {
       setError("Erreur lors du parsing PGN vers FEN");

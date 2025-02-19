@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ChessboardComponent } from "./components/chessboard";
 import { PGNInput } from "./components/pgn-input";
 
