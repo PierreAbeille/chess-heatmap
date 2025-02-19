@@ -1,7 +1,9 @@
+"use client";
+
 import { createContext, useContext, useState } from "react";
 import { GameContextProps } from "../types/game-context-props";
 import { Heatmap } from "../types/heatmap";
-import { parsePGNtoFEN } from "../utils/pgn-parser";
+import { parsePGNtoFENList } from "../utils/pgn-parser";
 
 export const GameContext = createContext<GameContextProps | undefined>(undefined);
 
@@ -17,7 +19,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
 
       try {
-        const parsedFens = parsePGNtoFEN(pgn);
+        const parsedFens = parsePGNtoFENList(pgn);
         setFens(parsedFens);
         setPgn(pgn);
         setError(null);

@@ -1,6 +1,6 @@
 import { Chess } from "chess.js";
 
-export const parsePGNtoFEN = (pgn: string): string[] => {
+export const parsePGNtoFENList = (pgn: string): string[] => {
     const chess = new Chess();
     const fens: string[] = [];
 
@@ -11,15 +11,17 @@ export const parsePGNtoFEN = (pgn: string): string[] => {
         return [];
     }
 
+    const moves = chess.history();
+    const newChess = new Chess();
+
     fens.push(chess.fen());
     while (chess.history().length) {
         chess.undo();
     }
 
-    const moves = chess.history();
     moves.forEach((move) => {
-        chess.move(move);
-        fens.push(chess.fen());
+        newChess.move(move);
+        fens.push(newChess.fen());
     });
 
     return fens;

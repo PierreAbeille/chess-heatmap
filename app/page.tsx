@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ChessboardComponent } from "./components/chessboard";
+import { PGNInput } from "./components/pgn-input";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
               staging.chess-heatmap.hellopedro.dev
             </code>
             <ChessboardComponent />
+            <PGNInput />
           </div>
     </div>
   );
