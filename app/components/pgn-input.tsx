@@ -8,9 +8,9 @@ export const PGNInput: React.FC = () => {
     const [input, setInput] = useState<string>("");
 
     return (
-      <div className="p-4">
+      <div className="max-w-3xl mx-auto py-6">
         <textarea
-          className="w-full p-2 border border-gray-300 rounded text-cyan-950"
+          className="w-full p-2 border border-gray-300 rounded-2xl text-cyan-950"
           rows={4}
           placeholder="Collez votre PGN ici..."
           value={input}
@@ -21,10 +21,10 @@ export const PGNInput: React.FC = () => {
           onClick={() => parseAndSetPGN(input)}
         >
           Charger PGN
-        </button>
+        </button> 
 
         {/* Affichage des FEN */}
-        {fens.length > 0 && (
+        {/* {fens.length > 0 && (
           <div className="mt-4">
             <h3 className="text-lg font-bold">FEN générés :</h3>
             <ul className="list-disc pl-4">
@@ -36,7 +36,7 @@ export const PGNInput: React.FC = () => {
               ))}
             </ul>
           </div>
-        )}
+        )} */}
       </div>
     );
 };

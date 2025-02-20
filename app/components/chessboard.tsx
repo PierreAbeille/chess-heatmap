@@ -15,7 +15,7 @@ export const ChessboardComponent: React.FC = () => {
     // });
 
     const customBoardStyle= {
-        borderRadius: "5px",
+        borderRadius: "1rem",
         boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
     };
 
@@ -47,31 +47,47 @@ export const ChessboardComponent: React.FC = () => {
         return `rgba(${red}, ${green}, 0, 0.9)`; // Opacité de 0.6
     };
 
-    const getSquareStyle = (percentage: number) => {
-        if (percentage <= 5) return {};
-        return {
-            backgroundColor: getSquareColor(percentage),
-            border: "1px solid rgba(0, 0, 0, 0.2)",
-        };
-    }
+    const getSquareStyle = (
+      percentage: number,
+      square: "a1" | "h1" | "a8" | "h8"
+    ) => {
+      if (percentage <= 5) return {};
+
+      const baseStyle = {
+        backgroundColor: getSquareColor(percentage),
+        border: "1px solid rgba(0, 0, 0, 0.2)",
+      };
+
+      const cornerRadius = "1rem";
+      const corners = {
+        a1: { borderBottomLeftRadius: cornerRadius },
+        h1: { borderBottomRightRadius: cornerRadius },
+        a8: { borderTopLeftRadius: cornerRadius },
+        h8: { borderTopRightRadius: cornerRadius },
+      };
+
+      return {
+        ...baseStyle,
+        ...corners[square],
+      };
+    };
 
     return (
-        <div className="flex justify-center items-center">
-            <Chessboard
-                id="chessboard"
-                position={chess.fen()}
-                customSquareStyles={
-                    Object.fromEntries(
-                        Object.entries(normalizedHeatmap).map(([square, percentage]) => [
-                            square,
-                            getSquareStyle(percentage),
-                        ])
-                    )
-                }
-                customBoardStyle={customBoardStyle}
-                customDarkSquareStyle={customDarkSquareStyle}
-                customLightSquareStyle={customLightSquareStyle}
-            />
-        </div>
+      <div className="flex justify-center items-center">
+        <Chessboard
+          id="chessboard"
+          position={chess.fen()}
+          customSquareStyles={Object.fromEntries(
+            Object.entries(normalizedHeatmap).map(([square, percentage]) => [
+              square,
+              getSquareStyle(percentage, square as "a1" | "h1" | "a8" | "h8"),
+            ])
+          )}
+          customBoardStyle={customBoardStyle}
+          customDarkSquareStyle={customDarkSquareStyle}
+          customLightSquareStyle={customLightSquareStyle}
+          isDraggablePiece={() => false}
+        />
+      </div>
     );
 }
