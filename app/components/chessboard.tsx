@@ -6,7 +6,6 @@ import { useGameContext } from "../context/game-context";
 
 export const ChessboardComponent: React.FC = () => {
     const {chess, fens, heatmap} = useGameContext();
-    console.log(chess);
     
     //disable eslint for this line
     // eslint-disable-next-line
@@ -19,12 +18,12 @@ export const ChessboardComponent: React.FC = () => {
         boxShadow: "0 5px 15px rgba(0, 0, 0, 0.5)",
     };
 
-    const customDarkSquareStyle= {
-        backgroundColor: "#769656",
+    const customDarkSquareStyle = {
+      backgroundColor: "#716757",
     };
 
     const customLightSquareStyle = {
-        backgroundColor: "#eeeed2",
+      backgroundColor: "#fffcf8",
     };
 
     const totalPositions = fens.length;
@@ -36,7 +35,7 @@ export const ChessboardComponent: React.FC = () => {
     );
 
     const getSquareColor = (percentage: number) => {
-        if (percentage <= 5) return "transparent";
+        if (percentage <= 2) return "transparent";
 
         // Interpolation logarithmique pour éviter une dominance de rouge
         const normalized = Math.log(1 + percentage) / Math.log(101); // Normalisation sur 0-1
@@ -44,14 +43,14 @@ export const ChessboardComponent: React.FC = () => {
         const red = Math.floor(255 * normalized);
         const green = Math.floor(255 * (1 - normalized));
 
-        return `rgba(${red}, ${green}, 0, 0.9)`; // Opacité de 0.6
+        return `rgba(${red}, ${green}, 0, 1)`; // Opacité de 0.6
     };
 
     const getSquareStyle = (
       percentage: number,
       square: "a1" | "h1" | "a8" | "h8"
     ) => {
-      if (percentage <= 5) return {};
+      if (percentage <= 2) return {};
 
       const baseStyle = {
         backgroundColor: getSquareColor(percentage),

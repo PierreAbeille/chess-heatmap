@@ -1,16 +1,13 @@
 import { Chess } from "chess.js";
-import { useErrorContext } from "../context/error-context";
 
 export const parsePGNtoFENList = (pgn: string): string[] => {
     const chess = new Chess();
     const fens: string[] = [];
-    const {setError} = useErrorContext();
 
     try {
         chess.loadPgn(pgn);
     } catch (error) {
-        setError("Erreur présente dans le PGN"); 
-        return [];
+        throw new Error("Erreur lors de la lecture du PGN");
     }
 
     const moves = chess.history();

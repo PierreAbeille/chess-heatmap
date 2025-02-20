@@ -6,6 +6,7 @@ import { Heatmap } from "../types/heatmap";
 import { parsePGNtoFENList } from "../utils/pgn-parser";
 import { Chess } from "chess.js";
 import { useErrorContext } from "./error-context";
+import { computeHeatmap } from "../utils/compute-heatmap";
 
 export const GameContext = createContext<GameContextProps | undefined>(undefined);
 
@@ -36,7 +37,9 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (fens.length > 0) {
+        const computedHeatmap = computeHeatmap(fens);
       chess.load(fens[selectedMove]); // Charger la position actuelle
+        setHeatmap(computedHeatmap);
     }
   }, [selectedMove, fens]);
 
@@ -51,7 +54,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       setError(null);
       // eslint-disable-next-line
     } catch (error) {
-      setError("Le PGN est invalide");
+      setError("Erreur lors de la lecture du PGN");
     } finally {
       setLoading(false);
     }
