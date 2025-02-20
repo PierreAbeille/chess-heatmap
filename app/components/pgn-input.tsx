@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useGameContext } from "../context/game-context";
 
 export const PGNInput: React.FC = () => {
-    const { parseAndSetPGN, fens } = useGameContext();
+    const { parseAndSetPGN } = useGameContext();
     const [input, setInput] = useState<string>("");
 
     return (

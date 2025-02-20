@@ -7,7 +7,7 @@ export const parsePGNtoFENList = (pgn: string): string[] => {
     try {
         chess.loadPgn(pgn);
     } catch (error) {
-        throw new Error("Erreur lors de la lecture du PGN");
+        throw new Error(`Erreur lors de la lecture du PGN : ${error}`);
     }
 
     const moves = chess.history();

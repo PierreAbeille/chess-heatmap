@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from "react";
 
 const ErrorContext = createContext({
     error: null as string | null,
+    //eslint-disable-next-line
     setError: (msg: string | null) => {}
 });
 
