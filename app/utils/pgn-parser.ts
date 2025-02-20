@@ -1,13 +1,15 @@
 import { Chess } from "chess.js";
+import { useErrorContext } from "../context/error-context";
 
 export const parsePGNtoFENList = (pgn: string): string[] => {
     const chess = new Chess();
     const fens: string[] = [];
+    const {setError} = useErrorContext();
 
     try {
         chess.loadPgn(pgn);
     } catch (error) {
-        console.error("Invalid PGN", error);
+        setError("Erreur présente dans le PGN"); 
         return [];
     }
 

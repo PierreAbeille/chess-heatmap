@@ -6,7 +6,6 @@ export interface GameContextProps extends GameState {
     setFens: (fens: string[]) => void;
     setHeatmap: (heatmap: Heatmap) => void;
     setLoading: (loading: boolean) => void;
-    setError: (error: string | null) => void;
     setSelectedMove: (selectedMove: number) => void;
     parseAndSetPGN: (pgn: string) => void;
 }

@@ -8,6 +8,5 @@ export interface GameState {
     fens: string[];
     heatmap: Heatmap;
     loading: boolean;
-    error: string | null;
     selectedMove: number;
 }
