@@ -20,8 +20,8 @@ export const HeatmapLegend: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center mt-4">
-      <span className="min-w-full">
-        Pourcentage d&apos;occupation d&apos;une case par une pièce
+      <span className="min-w-full text-white">
+        Occupation d&apos;une case par une pièce en %
       </span>
       <div
         className="w-full max-w-full h-4 rounded-full"
@@ -30,7 +30,7 @@ export const HeatmapLegend: React.FC = () => {
             "linear-gradient(to right, rgb(124,175,249), rgb(170,0,230))",
         }}
       ></div>
-      <div className="flex justify-between w-full max-w-full mt-1 text-sm">
+      <div className="flex justify-between w-full max-w-full mt-1 text-sm text-white">
         <span>2%</span>
         <span>100%</span>
       </div>
