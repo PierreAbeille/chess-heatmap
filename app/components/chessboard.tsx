@@ -35,15 +35,17 @@ export const ChessboardComponent: React.FC = () => {
     );
 
     const getSquareColor = (percentage: number) => {
-        if (percentage <= 2) return "transparent";
+      if (percentage <= 2) return "transparent";
 
-        // Interpolation logarithmique pour éviter une dominance de rouge
-        const normalized = Math.log(1 + percentage) / Math.log(101); // Normalisation sur 0-1
+      // Interpolation logarithmique pour éviter une dominance de rouge
+      const normalized = Math.log(1 + percentage) / Math.log(101); // Normalisation sur 0-1
 
-        const red = Math.floor(255 * normalized);
-        const green = Math.floor(255 * (1 - normalized));
+      // Dégradé de bleu pâle (173, 216, 230) à violet (128, 0, 255)
+      const red = Math.floor(110 * (1 - normalized) + 170 * normalized);
+      const green = Math.floor(230 * (1 - normalized)); // Diminue progressivement
+      const blue = Math.floor(255 * (1 - normalized) + 230 * normalized);
 
-        return `rgba(${red}, ${green}, 0, 1)`; // Opacité de 0.6
+      return `rgba(${red}, ${green}, ${blue}, 1)`; // Opacité de 0.6
     };
 
     const getSquareStyle = (
