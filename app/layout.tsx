@@ -4,6 +4,7 @@ import "./globals.css";
 import { GameProvider } from "./context/game-context";
 import { ErrorProvider } from "./context/error-context";
 import { ErrorPopup } from "./components/error-popup";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ErrorProvider>
           <GameProvider>
             {children}
+            <Analytics />
           </GameProvider>
           <ErrorPopup />
         </ErrorProvider>
