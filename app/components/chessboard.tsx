@@ -40,7 +40,7 @@ export const ChessboardComponent: React.FC = () => {
       // Interpolation logarithmique pour éviter une dominance de rouge
       const normalized = Math.log(1 + percentage) / Math.log(101); // Normalisation sur 0-1
 
-      // Dégradé de bleu pâle (173, 216, 230) à violet (128, 0, 255)
+      // Dégradé de bleu pâle (110, 230, 255) à violet (170, 0, 230)
       const red = Math.floor(110 * (1 - normalized) + 170 * normalized);
       const green = Math.floor(230 * (1 - normalized)); // Diminue progressivement
       const blue = Math.floor(255 * (1 - normalized) + 230 * normalized);

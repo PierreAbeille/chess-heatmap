@@ -1,5 +1,6 @@
 import { ChessNotationInfo } from "./components/chess-notation";
 import { ChessboardComponent } from "./components/chessboard";
+import { HeatmapLegend } from "./components/heatmap-legend";
 import { PGNInput } from "./components/pgn-input";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <div className="mb-2">
         <h1 className="text-4xl font-bold mb-4 text-white">♟️ Chess Heatmap</h1>
         <ChessboardComponent />
+        <HeatmapLegend />
         <PGNInput />
         <ChessNotationInfo />
       </div>
