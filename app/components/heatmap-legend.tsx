@@ -20,7 +20,9 @@ export const HeatmapLegend: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center mt-4">
-      <span className="min-w-full">Pourcentage d'occupation d'une case par une pièce</span>
+      <span className="min-w-full">
+        Pourcentage d&apos;occupation d&apos;une case par une pièce
+      </span>
       <div
         className="w-full max-w-full h-4 rounded-full"
         style={{
