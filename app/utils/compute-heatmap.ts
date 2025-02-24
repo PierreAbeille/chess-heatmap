@@ -1,45 +1,65 @@
 import { Heatmap } from "../types/heatmap";
 
+const fenToMatrix = (fenPosition: string): (string | null)[][] => {
+
+    const rows = fenPosition.split("/");
+    const matrix: (string | null)[][] = [];
+
+    for (const row of rows) {
+        const currentRow: (string | null)[] = [];
+        for (const char of row) {
+            if (!isNaN(Number(char))) {
+                // Si c'est un  chiffre, on ajoute dans la matrice autant de cases vides que le chiffre (en notation FEN, une succesion de cases vides est représentée par un chiffre totalisant ces cases)
+                const emptyCount = Number(char);
+                for (let i = 0; i < emptyCount; i++) {
+                    currentRow.push(null);
+                }
+            } else {
+                // Sinon, c'est une pièce, on l'ajoute dans la matrice
+                currentRow.push(char);
+            }
+        }
+        matrix.push(currentRow);
+    }
+    return matrix;
+}
+
+
+const getSquareName = (row: number, col: number): string => {
+    const file = String.fromCharCode(97 + col);
+    const rank = 8 - row;
+    return `${file}${rank}`;
+}
+
+
+
 export const computeHeatmap = (fens: string[]): Heatmap => {
     const heatmap: Heatmap = {};
 
-    let previousBoard: string[] | null = null;
+    if (fens.length < 2) {
+        // Si on a moins de 2 positions, on ne calcule pas de heatmap, c'est un choix afin d'éviter de compter les positions de départ
+        return heatmap;
+    }
 
-    fens.forEach((fen) => {
-        const board = fen.split(" ")[0]; // Pour chaque fen on extrait uniquement la partie sur la position des pièces  
-        const rows = board.split("/"); // On sépare les lignes de l'échiquier
+    for (let i = 1; i < fens.length; i++) {
+        // On commence à 1 pour comparer chaque position avec la précédente
+        // On utilise .split(" ")[0] pour ne récupérer que la partie FEN de la position
+        const previousMatrix = fenToMatrix(fens[i - 1].split(" ")[0]);
+        const currentMatrix = fenToMatrix(fens[i].split(" ")[0]);
 
-        if (previousBoard) {
-            // On compare la position actuelle avec la position précédente afin de voir quelles pièces ont bougées
-            rows.forEach((row, rowIndex) => {
-                const rank = 8 - rowIndex; // On commence par la 8ème rangée
-                let file = 0; // On commence par la colonne a
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) { 
+                const previousPiece = previousMatrix[row][col];
+                const currentPiece = currentMatrix[row][col];
 
-                for (const char of row) {
-                    if (!isNaN(Number(char))) {
-                        // Si c'est un nombre, ça représente des cases vides dans l'échiquier, donc on incrémente le compteur de colonne
-                        file += Number(char);
-                    } else {
-                        // Sinon, c'est une pièce, on doit donc comparer avec la position précédente
-                        const square = `${String.fromCharCode(97 + file)}${rank}`; // 97 est le code ASCII de 'a', on incrémente pour obtenir la lettre de la colonne
-
-                        const prevRow = previousBoard ? previousBoard[rowIndex] : null; 
-                        const prevChar = prevRow ? prevRow[file] : null;
-
-                        // On regarde si la case précédente était vide ou non, en notation FEN les cases vides sont représentées par des nombres entre 1 et 8, représentant les cases vides succéssives
-                        if (!prevChar || ['1', '2', '3', '4', '5', '6', '7', '8'].includes(prevChar)) {
-                            // Si la case précédente est vide, on incrémente la heatmap
-                            heatmap[square] = (heatmap[square] || 0) + 1;
-                        }
-
-                        file++;
-                    }
+                if (previousPiece !== currentPiece) {
+                    // Si la case a changé, on incrémente le compteur
+                    const squareName = getSquareName(row, col);
+                    heatmap[squareName] = (heatmap[squareName] || 0) + 1;
                 }
-            });
+            }
         }
+    }
 
-        previousBoard = rows;
-    });
-    
     return heatmap;
 };

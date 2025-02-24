@@ -26,33 +26,32 @@ export const ChessboardComponent: React.FC = () => {
       backgroundColor: "#fffcf8",
     };
 
-    const totalPositions = fens.length;
+    const maxPositions = Math.max(...Object.values(heatmap));
     const normalizedHeatmap = Object.fromEntries(
         Object.entries(heatmap).map(([square, count]) => [
             square,
-            (count / totalPositions) * 100, // Normalize the count to a percentage
-        ])
+            Math.round((count * 100) / (maxPositions + 5)), // Normalize the count to a percentage
+        ])  
     );
 
     const getSquareColor = (percentage: number) => {
-      if (percentage <= 2) return "transparent";
+      if (percentage <= 10) return "transparent";
 
       // Interpolation logarithmique pour éviter une dominance de rouge
-      const normalized = Math.log(1 + percentage) / Math.log(101); // Normalisation sur 0-1
+      let normalized = Math.log(1 + percentage) / Math.log(101);
 
       // Dégradé de bleu pâle (110, 230, 255) à violet (170, 0, 230)
       const red = Math.floor(110 * (1 - normalized) + 170 * normalized);
       const green = Math.floor(230 * (1 - normalized)); // Diminue progressivement
       const blue = Math.floor(255 * (1 - normalized) + 230 * normalized);
 
-      return `rgba(${red}, ${green}, ${blue}, 1)`; // Opacité de 0.6
+      return `rgba(${red}, ${green}, ${blue}, 1)`;
     };
 
     const getSquareStyle = (
       percentage: number,
       square: "a1" | "h1" | "a8" | "h8"
     ) => {
-      if (percentage <= 2) return {};
 
       const baseStyle = {
         backgroundColor: getSquareColor(percentage),
@@ -73,6 +72,8 @@ export const ChessboardComponent: React.FC = () => {
       };
     };
 
+    console.log(heatmap, normalizedHeatmap);
+    
     return (
       <div>
         {pgn && <PlayersBanner />}
