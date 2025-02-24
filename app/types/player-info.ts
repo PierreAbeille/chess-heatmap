@@ -1,4 +1,4 @@
-export interface PlayerInfoProps {
+export interface PlayersInfo {
     white: string;
     black: string;
 }

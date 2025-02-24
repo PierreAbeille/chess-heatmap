@@ -1,4 +1,5 @@
 import { Heatmap } from "./heatmap";
+import { PlayersInfo } from "./player-info";
 
 export interface GameState {
     // must determine the type of chess
@@ -9,4 +10,5 @@ export interface GameState {
     heatmap: Heatmap;
     loading: boolean;
     selectedMove: number;
+    playersInfo: PlayersInfo;
 }

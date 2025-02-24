@@ -7,6 +7,8 @@ import { parsePGNtoFENList } from "../utils/pgn-parser";
 import { Chess } from "chess.js";
 import { useErrorContext } from "./error-context";
 import { computeHeatmap } from "../utils/compute-heatmap";
+import { PlayersInfo } from "../types/player-info";
+import { parsePlayerNames } from "../utils/player-name-parser";
 
 export const GameContext = createContext<GameContextProps | undefined>(undefined);
 
@@ -19,6 +21,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedMove, setSelectedMove] = useState<number>(0);
   const { setError } = useErrorContext();
+  const [playersInfo, setPlayersInfo] = useState<PlayersInfo>({ white: "", black: "" });
 
   // ✅ Récupération des données au chargement
   useEffect(() => {
@@ -35,10 +38,11 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     sessionStorage.setItem("fens", JSON.stringify(fens));
   }, [pgn, fens]);
 
+
   useEffect(() => {
     if (fens.length > 0) {
         const computedHeatmap = computeHeatmap(fens);
-      chess.load(fens[selectedMove]); // Charger la position actuelle
+        chess.load(fens[selectedMove]); // Charger la position actuelle
         setHeatmap(computedHeatmap);
     }
   }, [selectedMove, fens]);
@@ -50,6 +54,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       const parsedFens = parsePGNtoFENList(pgn);
       setFens(parsedFens);
       setPgn(pgn);
+      setPlayersInfo(parsePlayerNames(pgn));
       setSelectedMove(parsedFens.length - 1);
       setError(null);
       // eslint-disable-next-line
@@ -75,6 +80,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
         selectedMove,
         setSelectedMove,
         parseAndSetPGN,
+        playersInfo,
       }}
     >
       {children}

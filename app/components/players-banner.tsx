@@ -1,23 +1,26 @@
 "use client"
 
-import { PlayerInfoProps } from "../types/player-info";
 import { motion } from "framer-motion";
+import { useGameContext } from "../context/game-context";
 
-export const PlayerInfo: React.FC<PlayerInfoProps> = ({ white, black }) => {
+export const PlayersBanner = () => {
+    const {playersInfo} = useGameContext();
+
+
     return (
       <motion.div
-        className="flex flex-col sm:flex-row items-center justify-between w-full px-4 py-2 bg-gray-800 text-white rounded-lg shadow-md"
+        className="flex flex-col sm:flex-row items-center justify-between w-full min-h-16 px-4 pb-8 pt-4 -mb-4 bg-zinc-800 border border-gray-800 text-white rounded-t-2xl shadow-md"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-white rounded-full border border-gray-600"></div>
-          <span className="font-semibold">{white}</span>
+          <span className="font-semibold">{playersInfo.white}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-black rounded-full border border-gray-600"></div>
-          <span className="font-semibold">{black}</span>
+          <span className="font-semibold">{playersInfo.black}</span>
         </div>
       </motion.div>
     );

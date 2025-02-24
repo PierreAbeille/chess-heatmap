@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Chessboard } from "react-chessboard";
 import { useGameContext } from "../context/game-context";
-import { parsePlayerNames } from "../utils/player-name-parser";
-import { PlayerInfoProps } from "../types/player-info";
-import { PlayerInfo } from "./player-info";
+import { PlayersBanner } from "./players-banner";
 
 export const ChessboardComponent: React.FC = () => {
     const {chess, fens, heatmap, pgn} = useGameContext();
-    const [players, setPlayers] = useState<PlayerInfoProps>(() => parsePlayerNames(pgn))
     //disable eslint for this line
     // eslint-disable-next-line
     // const [squareStyles, setSquareStyles] = useState<{[key: string]: React.CSSProperties}>({
@@ -78,7 +75,7 @@ export const ChessboardComponent: React.FC = () => {
 
     return (
       <div>
-        {pgn && <PlayerInfo white={players.white} black={players.black} />}
+        {pgn && <PlayersBanner />}
         <Chessboard
           id="chessboard"
           position={chess.fen()}
