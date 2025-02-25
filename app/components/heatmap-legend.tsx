@@ -28,7 +28,7 @@ export const HeatmapLegend: React.FC = () => {
   return (
     <div className="flex flex-col items-center mt-4">
       <span className="min-w-full text-white">
-        Prise d'occupation d&apos;une case par une pièce en %
+        Prise d&apos;occupation d&apos;une case par une pièce en %
       </span>
       <input
         type="range"
