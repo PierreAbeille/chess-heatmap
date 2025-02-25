@@ -8,4 +8,5 @@ export interface GameContextProps extends GameState {
     setLoading: (loading: boolean) => void;
     setSelectedMove: (selectedMove: number) => void;
     parseAndSetPGN: (pgn: string) => void;
+    setMinScale: (minScale: number) => void;
 }

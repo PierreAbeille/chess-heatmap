@@ -11,4 +11,5 @@ export interface GameState {
     loading: boolean;
     selectedMove: number;
     playersInfo: PlayersInfo;
+    minScale: number;
 }

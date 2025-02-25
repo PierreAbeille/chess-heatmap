@@ -22,6 +22,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedMove, setSelectedMove] = useState<number>(0);
   const { setError } = useErrorContext();
   const [playersInfo, setPlayersInfo] = useState<PlayersInfo>({ white: "", black: "" });
+  const [minScale, setMinScale] = useState<number>(10);
 
   // ✅ Récupération des données au chargement
   useEffect(() => {
@@ -81,6 +82,8 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
         setSelectedMove,
         parseAndSetPGN,
         playersInfo,
+        minScale,
+        setMinScale
       }}
     >
       {children}

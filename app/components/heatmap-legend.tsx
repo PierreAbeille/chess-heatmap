@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useGameContext } from "../context/game-context";
 
 export const HeatmapLegend: React.FC = () => {
   // Pour notre dégradé, on fixe la valeur minimale à 2% (la limite de getSquareColor)
@@ -18,20 +19,32 @@ export const HeatmapLegend: React.FC = () => {
   //   red   = 170, green = 0, blue = 230
   // Donc couleur d'arrivée : rgb(170,0,230)
 
+  const {minScale, setMinScale} = useGameContext();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMinScale(parseInt(event.target.value, 10))
+  }
+
   return (
     <div className="flex flex-col items-center mt-4">
       <span className="min-w-full text-white">
-        Occupation d&apos;une case par une pièce en %
+        Prise d'occupation d&apos;une case par une pièce en %
       </span>
-      <div
-        className="w-full max-w-full h-4 rounded-full"
+      <input
+        type="range"
+        min={0}
+        max={100}
+        step={1}
+        value={minScale}
+        onChange={handleChange}
+        className="w-full max-w-full my-2 h-4 appearance-none cursor-pointer rounded-full"
         style={{
           background:
             "linear-gradient(to right, rgb(124,175,249), rgb(170,0,230))",
         }}
-      ></div>
+      />
       <div className="flex justify-between w-full max-w-full mt-1 text-sm text-white">
-        <span>2%</span>
+        <span>{minScale}%</span>
         <span>100%</span>
       </div>
     </div>
