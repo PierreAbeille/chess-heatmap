@@ -16,11 +16,11 @@ export const PlayersBanner = () => {
       >
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-white rounded-full border border-gray-600"></div>
-          <span className="font-semibold">{playersInfo.white}</span>
+          <span className="font-semibold text-white">{playersInfo.white}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-black rounded-full border border-gray-600"></div>
-          <span className="font-semibold">{playersInfo.black}</span>
+          <span className="font-semibold text-white">{playersInfo.black}</span>
         </div>
       </motion.div>
     );

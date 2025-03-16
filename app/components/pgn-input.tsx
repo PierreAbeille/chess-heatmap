@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useGameContext } from "../context/game-context";
+import { Button } from "./ui/button";
 
 export const PGNInput: React.FC = () => {
     const { parseAndSetPGN } = useGameContext();
@@ -16,12 +17,12 @@ export const PGNInput: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button
+        <Button
           className="mt-2 p-2 bg-blue-500 text-white rounded"
           onClick={() => parseAndSetPGN(input)}
         >
           Charger PGN
-        </button> 
+        </Button> 
 
         {/* Affichage des FEN */}
         {/* {fens.length > 0 && (

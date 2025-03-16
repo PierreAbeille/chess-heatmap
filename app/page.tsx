@@ -1,3 +1,4 @@
+import { ChessGamesList } from "./components/chess-games-list";
 import { ChessNotationInfo } from "./components/chess-notation";
 import { ChessboardComponent } from "./components/chessboard";
 import { HeatmapLegend } from "./components/heatmap-legend";
@@ -10,6 +11,7 @@ export default function Home() {
         <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white">♟️ Chess Heatmap</h1>
         <ChessboardComponent />
         <HeatmapLegend />
+        <ChessGamesList />
         <PGNInput />
         <ChessNotationInfo />
       </div>

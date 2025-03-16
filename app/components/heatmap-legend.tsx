@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { useGameContext } from "../context/game-context";
+import { debounce } from "lodash";
 
 export const HeatmapLegend: React.FC = () => {
   // Pour notre dégradé, on fixe la valeur minimale à 2% (la limite de getSquareColor)
@@ -20,9 +21,14 @@ export const HeatmapLegend: React.FC = () => {
   // Donc couleur d'arrivée : rgb(170,0,230)
 
   const {minScale, setMinScale} = useGameContext();
+  const [localValue, setLocalValue] = React.useState(minScale);
+
+  const debouncedMinScale = useCallback(debounce((value: number) => setMinScale(value), 10), [setMinScale]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMinScale(parseInt(event.target.value, 10))
+    const value = parseInt(event.target.value, 10);
+    setLocalValue(value);
+    debouncedMinScale(value);
   }
 
   return (
@@ -35,7 +41,7 @@ export const HeatmapLegend: React.FC = () => {
         min={0}
         max={100}
         step={1}
-        value={minScale}
+        value={localValue}
         onChange={handleChange}
         className="w-full max-w-full my-2 h-4 appearance-none cursor-pointer rounded-full"
         style={{
@@ -44,7 +50,7 @@ export const HeatmapLegend: React.FC = () => {
         }}
       />
       <div className="flex justify-between w-full max-w-full mt-1 text-sm text-white">
-        <span>{minScale}%</span>
+        <span>{localValue}%</span>
         <span>100%</span>
       </div>
     </div>

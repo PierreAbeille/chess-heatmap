@@ -71,8 +71,6 @@ export const ChessboardComponent: React.FC = () => {
     };
   };
 
-  console.log(heatmap, normalizedHeatmap);
-
   return (
     <div>
       {pgn && <PlayersBanner />}
