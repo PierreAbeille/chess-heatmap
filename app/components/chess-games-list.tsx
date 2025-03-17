@@ -18,8 +18,8 @@ export const ChessGamesList = () => {
 
     return (
       <div className="w-full max-w-3xl mx-auto">
-        <ScrollArea className="rounded-2xl border p-4 py-6 bg-gray-100">
-        <h2 className="text-2xl font-bold text-center mb-4">
+        <ScrollArea className="rounded-2xl border border-zinc-800 p-4 py-6 bg-zinc-800/90">
+        <h2 className="text-2xl font-bold text-center mb-4 text-white">
           Exemples de parties
         </h2>
           {chessGames.map((game) => (

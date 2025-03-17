@@ -1,16 +1,30 @@
 "use client";
 
 import { Info } from "lucide-react";
-import { useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
-export const ChessNotationCard = () => {
+export const ChessNotationCard = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
-    const handleCopyPGN = () => {
-      const pgn = `[Event "Jose Raul Capablanca - Gonzalez Manchon Juan Miguel (1941.??.??)"]
+  // Exposer la méthode setIsOpen pour permettre l'ouverture depuis l'extérieur
+  useImperativeHandle(ref, () => ({
+    setIsOpen,
+  }));
+
+  // Afficher automatiquement la modale lors de la première visite
+  useEffect(() => {
+    const hasSeenIntro = localStorage.getItem("chessHeatmapIntroSeen");
+    if (!hasSeenIntro) {
+      setIsOpen(true);
+      localStorage.setItem("chessHeatmapIntroSeen", "true");
+    }
+  }, []);
+
+  const handleCopyPGN = () => {
+    const pgn = `[Event "Jose Raul Capablanca - Gonzalez Manchon Juan Miguel (1941.??.??)"]
 [Site "Habana (Cuba)"]
 [Date "1941.??.??"]
 [Round "?"]
@@ -32,19 +46,19 @@ Rh1 55. Kc2 Rxc1+ 56. Kxc1 Nxb3+ 57. Kb1 Nc5 58. Rg6 Nxd3 59. Rb6 Nc5 60. Rxb4
 Nxe4 61. Rb7+ Kf6 62. Ka2 d3 63. Rd7 d2 64. Kxa3 Kxf5 65. Kb4 Kf4 66. c5 Nxc5
 67. Kxc5 e4 68. Rxd2 1/2-1/2`;
 
-      navigator.clipboard.writeText(pgn);
-    };
+    navigator.clipboard.writeText(pgn);
+  };
 
   return (
     <>
       <Button
         variant="ghost"
-        size="icon"
-        className="text-gray-400 rounded-full transition-colors"
+        size="sm"
+        className="ml-2 text-gray-400 hover:text-white transition-colors flex items-center gap-1"
         onClick={() => setIsOpen(true)}
       >
-        <Info className="h-12 w-12" />
-        <span className="sr-only">Informations</span>
+        <Info className="h-4 w-4" />
+        <span className="hidden sm:inline">Aide</span>
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -56,7 +70,12 @@ Nxe4 61. Rb7+ Kf6 62. Ka2 d3 63. Rd7 d2 64. Kxa3 Kxf5 65. Kb4 Kf4 66. c5 Nxc5
           </DialogHeader>
 
           <div className="mt-4">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full"
+              defaultValue="item-1"
+            >
               {/* Intro : Pourquoi cette application ? */}
               <AccordionItem value="item-1">
                 <AccordionTrigger className="text-lg font-semibold">
@@ -160,4 +179,6 @@ Nxe4 61. Rb7+ Kf6 62. Ka2 d3 63. Rd7 d2 64. Kxa3 Kxf5 65. Kb4 Kf4 66. c5 Nxc5
       </Dialog>
     </>
   );
-};
+});
+
+ChessNotationCard.displayName = "ChessNotationCard"

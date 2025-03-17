@@ -18,7 +18,7 @@ export const PGNInput: React.FC = () => {
           onChange={(e) => setInput(e.target.value)}
         />
         <Button
-          variant="blue"
+          variant="outline"
           size="w_full"
           onClick={() => parseAndSetPGN(input)}
         >
