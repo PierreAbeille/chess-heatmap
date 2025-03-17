@@ -27,7 +27,7 @@ export const ChessGamesList = () => {
               key={game.id}
               onClick={() => handleGameSelect(game)}
             variant={selectedGameId === game.id ? "default" : "outline"}
-            className="w-full h-16 rounded-2xl justify-start mb-2 text-left"
+            className="w-full h-16 justify-start mb-2 text-left"
             >
               <div>
                 <div className="font-medium">{game.name}</div>

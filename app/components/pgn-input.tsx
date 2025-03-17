@@ -18,7 +18,8 @@ export const PGNInput: React.FC = () => {
           onChange={(e) => setInput(e.target.value)}
         />
         <Button
-          className="mt-2 p-2 bg-blue-500 text-white rounded"
+          variant="blue"
+          size="w_full"
           onClick={() => parseAndSetPGN(input)}
         >
           Charger PGN
